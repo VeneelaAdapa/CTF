@@ -16,8 +16,8 @@ app.use(cookieParser('null_chapter_is_the_best'));
 app.use(BodyParser.urlencoded({ extend: true }));
 app.use(BodyParser.json());
 //mongodb+srv://admin:password@123@cluster0-ug10m.mongodb.net/test?retryWrites=true&w=majority
-Mongoose.connect("mongodb://127.0.0.1:27017/mydb",{ useNewUrlParser: true,useUnifiedTopology: true });
-Mongoose.connect("mongodb://127.0.0.1:27017/Orders",{ useNewUrlParser: true,useUnifiedTopology: true });
+Mongoose.connect("mongodb+srv://admin:password@123@cluster0-ug10m.mongodb.net/test?retryWrites=true&w=majority",{ useNewUrlParser: true,useUnifiedTopology: true });
+//Mongoose.connect("mongodb://127.0.0.1:27017/Orders",{ useNewUrlParser: true,useUnifiedTopology: true });
 
 const OrderSchema = Mongoose.Schema({
     orderId: String
@@ -49,7 +49,10 @@ const UserSchema = new Mongoose.Schema({
 
 const OrderModel = new Mongoose.model("order_id", OrderSchema);
 
-const UserModel = new Mongoose.model("user", UserSchema);
+//const UserModel = new Mongoose.model("user", UserSchema);
+app.get('/', function(request, response) {
+    return response.json({message:'Running...'});
+});
 
 app.post("/login", async (request, response) => {
     
@@ -136,7 +139,7 @@ app.post("logout",async(request,response)=>{
 const challenges = require('./challenges.json');
 
 
-app.post("/api/get-challenges", async(request,response)=>{
+app.post("/get-challenges", async(request,response)=>{
     try {
         var user = await UserModel.findOne({ email: request.signedCookies['username'] }).exec();
         if(!user) {
