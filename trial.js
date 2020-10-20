@@ -139,7 +139,7 @@ app.post("logout",async(request,response)=>{
 const challenges = require('./challenges.json');
 
 
-app.post("/api/get-challenges", async(request,response)=>{
+app.post("/get-challenges", async(request,response)=>{
     try {
         var user = await UserModel.findOne({ email: request.signedCookies['username'] }).exec();
         if(!user) {
