@@ -49,9 +49,9 @@ const UserSchema = new Mongoose.Schema({
 
 const OrderModel = new Mongoose.model("order_id", OrderSchema);
 
-//const UserModel = new Mongoose.model("user", UserSchema);
+const UserModel = new Mongoose.model("user", UserSchema);
 app.get('/', function(request, response) {
-    return response.json({message:'Running...'});
+    return response.sendFile(__dirname + '/welcome.html');
 });
 
 app.post("/login", async (request, response) => {
@@ -139,7 +139,7 @@ app.post("logout",async(request,response)=>{
 const challenges = require('./challenges.json');
 
 
-app.post("/get-challenges", async(request,response)=>{
+app.post("/api/get-challenges", async(request,response)=>{
     try {
         var user = await UserModel.findOne({ email: request.signedCookies['username'] }).exec();
         if(!user) {
