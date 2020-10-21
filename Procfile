@@ -1,1 +1,1 @@
-web: node trial.js
+web: node app.js
